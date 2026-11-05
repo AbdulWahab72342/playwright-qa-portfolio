@@ -1,5 +1,7 @@
 # playwright-qa-portfolio
 
+[![Playwright Tests](https://github.com/AbdulWahab72342/playwright-qa-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/AbdulWahab72342/playwright-qa-portfolio/actions/workflows/playwright.yml)
+
 UI test automation for [Sauce Demo](https://www.saucedemo.com), a public practice e-commerce site, written with Playwright and TypeScript using the Page Object Model.
 
 ## What is tested
@@ -17,6 +19,7 @@ UI test automation for [Sauce Demo](https://www.saucedemo.com), a public practic
 - TypeScript
 - Page Object Model — page selectors and actions live in `pages/`, tests in `tests/` only describe behaviour and assertions
 - Chromium (desktop Chrome profile)
+- GitHub Actions — runs the suite on every push and pull request
 
 ## Project structure
 
@@ -31,6 +34,7 @@ tests/                  Test specs
   cart-checkout.spec.ts
 playwright.config.ts    Base URL, browser, reporters, trace/screenshot settings
 tsconfig.json           TypeScript settings for type-checking
+.github/workflows/      CI pipeline (GitHub Actions)
 ```
 
 ## How to run locally
@@ -67,3 +71,14 @@ npm run typecheck
 ```
 
 On failure, Playwright saves a screenshot and a trace in `test-results/`; both are also attached to the HTML report.
+
+## Continuous integration
+
+`.github/workflows/playwright.yml` runs on every push and pull request:
+
+1. Installs dependencies with `npm ci`
+2. Installs Chromium and its system dependencies
+3. Runs the Playwright tests
+4. Uploads the HTML report as the `playwright-report` artifact (kept 14 days), including when tests fail
+
+To view a report, open the workflow run in the **Actions** tab, download `playwright-report`, unzip it and run `npx playwright show-report <unzipped-folder>`.
