@@ -46,7 +46,7 @@ docs/test-cases.md      Written test cases behind the automated tests
 
 ## How to run locally
 
-Requires Node.js 18 or newer.
+Requires Node.js 20 or newer (the minimum supported by Playwright 1.63).
 
 ```bash
 npm install
