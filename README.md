@@ -13,6 +13,8 @@ UI test automation for [Sauce Demo](https://www.saucedemo.com), a public practic
 | `tests/cart-checkout.spec.ts` | Add item to cart | Adding a product updates the cart badge to `1` and the product appears in the cart |
 | `tests/cart-checkout.spec.ts` | Complete checkout | Cart → customer info → overview → finish shows "Thank you for your order!" |
 
+Detailed test cases (steps, test data, expected results): [`docs/test-cases.md`](docs/test-cases.md)
+
 ## Tech stack
 
 - [Playwright Test](https://playwright.dev) — test runner, browser automation, assertions, HTML report
@@ -35,6 +37,7 @@ tests/                  Test specs
 playwright.config.ts    Base URL, browser, reporters, trace/screenshot settings
 tsconfig.json           TypeScript settings for type-checking
 .github/workflows/      CI pipeline (GitHub Actions)
+docs/test-cases.md      Written test cases behind the automated tests
 ```
 
 ## How to run locally
