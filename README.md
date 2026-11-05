@@ -80,8 +80,9 @@ On failure, Playwright saves a screenshot and a trace in `test-results/`; both a
 `.github/workflows/playwright.yml` runs on every push and pull request:
 
 1. Installs dependencies with `npm ci`
-2. Installs Chromium and its system dependencies
-3. Runs the Playwright tests
-4. Uploads the HTML report as the `playwright-report` artifact (kept 14 days), including when tests fail
+2. Runs the Playwright tests inside the official Playwright Docker image (`mcr.microsoft.com/playwright`), which already contains the browsers and their system libraries
+3. Uploads the HTML report as the `playwright-report` artifact (kept 14 days), including when tests fail
+
+The image tag in the workflow must match the `@playwright/test` version in `package.json`; update both together.
 
 To view a report, open the workflow run in the **Actions** tab, download `playwright-report`, unzip it and run `npx playwright show-report <unzipped-folder>`.
