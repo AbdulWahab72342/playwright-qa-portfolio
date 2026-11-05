@@ -11,6 +11,11 @@ export class CartPage {
     this.checkoutButton = page.getByTestId('checkout');
   }
 
+  async removeItem(productName: string) {
+    const item = this.page.getByTestId('inventory-item').filter({ hasText: productName });
+    await item.getByRole('button', { name: 'Remove' }).click();
+  }
+
   async checkout() {
     await this.checkoutButton.click();
   }

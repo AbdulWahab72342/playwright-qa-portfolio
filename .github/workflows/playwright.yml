@@ -1,7 +1,9 @@
 name: Playwright Tests
 
 on:
+  # Branch pushes are covered by the pull_request run; this avoids running twice.
   push:
+    branches: [main]
   pull_request:
 
 jobs:

@@ -6,12 +6,13 @@ UI test automation for [Sauce Demo](https://www.saucedemo.com), a public practic
 
 ## What is tested
 
-| Spec file | Test | What it checks |
+15 automated tests, grouped by feature:
+
+| Spec file | Area | Tests |
 |---|---|---|
-| `tests/login.spec.ts` | Valid login | `standard_user` logs in and lands on the Products page |
-| `tests/login.spec.ts` | Invalid login | Wrong password shows the expected error message and the user stays on the login page |
-| `tests/cart-checkout.spec.ts` | Add item to cart | Adding a product updates the cart badge to `1` and the product appears in the cart |
-| `tests/cart-checkout.spec.ts` | Complete checkout | Cart → customer info → overview → finish shows "Thank you for your order!" |
+| `tests/login.spec.ts` | Authentication | Valid login, wrong password, locked-out user, empty username, empty password, logout |
+| `tests/inventory.spec.ts` | Product sorting | Name A→Z, name Z→A, price low→high, price high→low |
+| `tests/cart-checkout.spec.ts` | Cart and checkout | Add to cart, remove from cart, complete checkout, checkout form validation, order total for multiple items |
 
 Detailed test cases (steps, test data, expected results): [`docs/test-cases.md`](docs/test-cases.md)
 
@@ -21,7 +22,7 @@ Detailed test cases (steps, test data, expected results): [`docs/test-cases.md`]
 - TypeScript
 - Page Object Model — page selectors and actions live in `pages/`, tests in `tests/` only describe behaviour and assertions
 - Chromium (desktop Chrome profile)
-- GitHub Actions — runs the suite on every push and pull request
+- GitHub Actions — runs the suite on every pull request and on pushes to `main`
 
 ## Project structure
 
@@ -33,7 +34,10 @@ pages/                  Page objects (one class per screen)
   CheckoutPage.ts
 tests/                  Test specs
   login.spec.ts
+  inventory.spec.ts
   cart-checkout.spec.ts
+test-data/              Shared test data (demo users)
+  users.ts
 playwright.config.ts    Base URL, browser, reporters, trace/screenshot settings
 tsconfig.json           TypeScript settings for type-checking
 .github/workflows/      CI pipeline (GitHub Actions)
@@ -77,7 +81,7 @@ On failure, Playwright saves a screenshot and a trace in `test-results/`; both a
 
 ## Continuous integration
 
-`.github/workflows/playwright.yml` runs on every push and pull request:
+`.github/workflows/playwright.yml` runs on every pull request and on every push to `main`:
 
 1. Installs dependencies with `npm ci`
 2. Runs the Playwright tests inside the official Playwright Docker image (`mcr.microsoft.com/playwright`), which already contains the browsers and their system libraries
