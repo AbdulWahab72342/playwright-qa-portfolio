@@ -15,6 +15,8 @@ export default defineConfig({
       testDir: './tests/ui',
       use: {
         ...devices['Desktop Chrome'],
+        // Locally, use the installed Google Chrome; CI uses Playwright's bundled Chromium.
+        channel: process.env.CI ? undefined : 'chrome',
         baseURL: 'https://www.saucedemo.com',
         // Sauce Demo uses data-test attributes, so getByTestId() maps to them.
         testIdAttribute: 'data-test',
